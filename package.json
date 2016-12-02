@@ -1,0 +1,40 @@
+{
+  "name": "phaser-amazon-cognito",
+  "author": "OrangeGames",
+  "version": "0.0.1",
+  "description": "A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn",
+  "contributors": [
+    {
+      "name": "Ale Bles",
+      "email": "a.bles@orangegames.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:orange-games/phaser-amazon-cognito.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/orange-games/phaser-amazon-cognito/raw/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "@types/aws-sdk": "0.0.42",
+    "@types/es6-promise": "0.0.32",
+    "grunt": "0.4.x",
+    "grunt-banner": "^0.6.0",
+    "grunt-contrib-clean": "0.6.0",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-ts": "^6.0.0-beta.3",
+    "grunt-tslint": "^3.3.0",
+    "phaser": "2.6.2",
+    "tslint": "^3.15.1",
+    "typescript": "2.0.x"
+  },
+  "engines": {
+    "node": "5.x.x"
+  }
+}
