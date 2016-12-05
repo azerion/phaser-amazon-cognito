@@ -5,10 +5,10 @@ module Fabrique {
         }
 
         export class Cognito extends Phaser.Plugin {
-            constructor(game: ICognitoGame, pluginManager: Phaser.PluginManager) {
+            constructor(game: ICognitoGame, pluginManager: Phaser.PluginManager, region: string, IdentityPoolId: string) {
                 super(game, pluginManager);
 
-                Object.defineProperty(game, 'ads', {
+                Object.defineProperty(game, 'cognito', {
                     value: this
                 });
             }
