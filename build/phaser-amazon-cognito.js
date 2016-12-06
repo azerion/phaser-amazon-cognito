@@ -16,12 +16,20 @@ var Fabrique;
                     value: this
                 });
             }
+            /**
+             * Setting userPool configuration.
+             */
             Cognito.prototype.setPoolInfo = function (userPoolId, clientId) {
                 this.userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
                     UserPoolId: userPoolId,
                     ClientId: clientId
                 });
             };
+            /**
+             * Register a new user to the userPool.
+             * @param attributes Optional attributes, saved with the user.
+             * @returns {Promise<T>|Promise} The user or an error in a promise
+             */
             Cognito.prototype.register = function (username, password, email, attributes) {
                 var _this = this;
                 if (attributes === void 0) { attributes = null; }
@@ -54,24 +62,33 @@ var Fabrique;
                     });
                 });
             };
-            Cognito.prototype.confirmRegistration = function (verificationCode) {
+            /**
+             * Confirm the user, allowing him to login.
+             * @param confirmationCode Code sent to users email.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            Cognito.prototype.confirmRegistration = function (confirmationCode) {
                 var _this = this;
                 return new Promise(function (resolve, reject) {
                     if (!_this.currentUser) {
                         reject('User was not set!');
                     }
                     else {
-                        _this.currentUser.confirmRegistration(verificationCode, true, function (error, res) {
+                        _this.currentUser.confirmRegistration(confirmationCode, true, function (error, res) {
                             if (error !== null) {
                                 reject(error);
                             }
                             else {
-                                resolve(res);
+                                resolve(null);
                             }
                         });
                     }
                 });
             };
+            /**
+             * Resends the confirmation email to the user.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
             Cognito.prototype.resendConfirmation = function () {
                 var _this = this;
                 return new Promise(function (resolve, reject) {
@@ -84,12 +101,16 @@ var Fabrique;
                                 reject(error);
                             }
                             else {
-                                resolve(result);
+                                resolve(null);
                             }
                         });
                     }
                 });
             };
+            /**
+             * Logs in a user with given credentials.
+             * @returns {Promise<T>|Promise} An object with the user and sessionToken or an error in a promise
+             */
             Cognito.prototype.login = function (username, password) {
                 var _this = this;
                 var authentication = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
@@ -111,9 +132,16 @@ var Fabrique;
                     });
                 });
             };
+            /**
+             * Logs the user out.
+             */
             Cognito.prototype.logout = function () {
                 this.currentUser.signOut();
             };
+            /**
+             * Checks if the current user has a valid session with the server.
+             * @returns {Promise<T>|Promise} The session of the user or an error in a promise
+             */
             Cognito.prototype.validateSession = function () {
                 var _this = this;
                 return new Promise(function (resolve, reject) {
@@ -137,12 +165,18 @@ var Fabrique;
                     }
                 });
             };
+            /**
+             * Sets the current user to use for all commands except login and register.
+             */
             Cognito.prototype.setUser = function (username) {
                 this.currentUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
                     Username: username,
                     Pool: this.userPool
                 });
             };
+            /**
+             * Loads the user and session from localStorage, saved on the device.
+             */
             Cognito.prototype.loadStorageUser = function () {
                 this.currentUser = this.userPool.getCurrentUser();
             };
