@@ -1,29 +1,29 @@
-declare module "AWSCognito.CognitoIdentityServiceProvider" {
+declare module 'AWSCognito.CognitoIdentityServiceProvider' {
     export = AWSCognito.CognitoIdentityServiceProvider;
 }
 
 declare module AWSCognito.CognitoIdentityServiceProvider {
 
-    export interface AuthenticationDetailsData {
+    export interface IAuthenticationDetailsData {
         Username: string;
         Password: string;
     }
 
     export class AuthenticationDetails {
-        constructor(data: AuthenticationDetailsData);
+        constructor(data: IAuthenticationDetailsData);
 
         public getUsername(): string;
         public getPassword(): string;
         public getValidationData(): any[];
     }
 
-    export interface CognitoUserData {
+    export interface ICognitoUserData {
         Username: string;
         Pool: CognitoUserPool;
     }
 
     export class CognitoUser {
-        constructor(data: CognitoUserData);
+        constructor(data: ICognitoUserData);
 
         public getSignInUserSession(): CognitoUserSession;
         public getUsername(): string;
@@ -38,13 +38,13 @@ declare module AWSCognito.CognitoIdentityServiceProvider {
         public signOut(): void;
     }
 
-    export interface CognitoUserAttributeData {
+    export interface ICognitoUserAttributeData {
         Name: string;
         Value: string;
     }
 
     export class CognitoUserAttribute {
-        constructor(data: CognitoUserAttributeData);
+        constructor(data: ICognitoUserAttributeData);
 
         public getValue(): string;
         public setValue(value: string): CognitoUserAttribute;
@@ -54,14 +54,14 @@ declare module AWSCognito.CognitoIdentityServiceProvider {
         public toJSON(): Object;
     }
 
-    export interface CognitoUserPoolData {
+    export interface ICognitoUserPoolData {
         UserPoolId: string;
         ClientId: string;
         Paranoia?: number;
     }
 
     export class CognitoUserPool {
-        constructor(data: CognitoUserPoolData);
+        constructor(data: ICognitoUserPoolData);
 
         public getUserPoolId(): string;
         public getClientId(): string;
@@ -74,14 +74,14 @@ declare module AWSCognito.CognitoIdentityServiceProvider {
         public getCurrentUser(): CognitoUser;
     }
 
-    export interface CognitoUserSessionData {
+    export interface ICognitoUserSessionData {
         IdToken: string;
         AccessToken: string;
         RefreshToken?: string;
     }
 
     export class CognitoUserSession {
-        constructor(data: CognitoUserSessionData);
+        constructor(data: ICognitoUserSessionData);
 
         public getIdToken(): CognitoIdToken;
         public getRefreshToken(): CognitoRefreshToken;
@@ -92,21 +92,21 @@ declare module AWSCognito.CognitoIdentityServiceProvider {
     export class CognitoAccessToken {
         constructor(accessToken: string);
 
-        getJwtToken(): string;
-        getExpiration(): number;
+        public getJwtToken(): string;
+        public getExpiration(): number;
     }
 
     export class CognitoIdToken {
         constructor(idToken: string);
 
-        getJwtToken(): string;
-        getExpiration(): number;
+        public getJwtToken(): string;
+        public getExpiration(): number;
     }
 
     export class CognitoRefreshToken {
         constructor(refreshToken: string);
 
-        getJwtToken(): string;
-        getExpiration(): number;
+        public getJwtToken(): string;
+        public getExpiration(): number;
     }
 }
