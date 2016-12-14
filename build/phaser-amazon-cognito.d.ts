@@ -1,4 +1,3 @@
-/// <reference path="../ts/definitions.d.ts" />
 /// <reference types="es6-promise" />
 declare module Fabrique {
     module Plugins {

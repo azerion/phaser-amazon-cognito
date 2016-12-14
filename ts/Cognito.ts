@@ -1,4 +1,3 @@
-/// <reference path='./definitions.d.ts'/>
 module Fabrique {
     export module Plugins {
         export interface ICognitoGame extends Phaser.Game {
