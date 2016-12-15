@@ -63,7 +63,11 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'build/<%= pkg.name %>.min.js': [
-                        'vendor/*.js',
+                        'vendor/jsbn.js',
+                        'vendor/jsbn2.js',
+                        'vendor/sjcl.js',
+                        'vendor/aws-cognito-sdk.min.js',
+                        'vendor/amazon-cognito-identity.min.js',
                         'build/<%= pkg.name %>.js'
                     ]
                 }

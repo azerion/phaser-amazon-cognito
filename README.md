@@ -25,6 +25,9 @@ After adding the script to the page you can activate it by enabling the plugin:
 game.add.plugin(Fabrique.Plugins.Cognito);
 ```
 
+#####Note
+If you are using typescript, you have to user typescript 2.0.0 or higher for the promises to work.
+
 Usage
 -----
 First off you want to set the user pool info using the userPoolId and clientId.

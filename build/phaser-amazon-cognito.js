@@ -3,7 +3,7 @@
  * A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn
  *
  * OrangeGames
- * Build at 14-12-2016
+ * Build at 15-12-2016
  * Released under MIT License 
  */
 
