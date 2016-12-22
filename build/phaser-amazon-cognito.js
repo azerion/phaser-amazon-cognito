@@ -1,12 +1,3 @@
-/*!
- * phaser-amazon-cognito - version 0.0.3 
- * A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn
- *
- * OrangeGames
- * Build at 15-12-2016
- * Released under MIT License 
- */
-
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -52,11 +43,13 @@ var Fabrique;
                     Value: email
                 }));
                 // Add all others
-                for (var i = 0; i < attributes.length; i++) {
-                    attr.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
-                        Name: attributes[i].name,
-                        Value: attributes[i].value
-                    }));
+                if (attributes !== null && attributes.length > 0) {
+                    for (var i = 0; i < attributes.length; i++) {
+                        attr.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+                            Name: attributes[i].name,
+                            Value: attributes[i].value
+                        }));
+                    }
                 }
                 return new Promise(function (resolve, reject) {
                     _this.userPool.signUp(username, password, attr, null, function (error, res) {
@@ -145,6 +138,76 @@ var Fabrique;
              */
             Cognito.prototype.logout = function () {
                 this.currentUser.signOut();
+            };
+            /**
+             * Sends a reset password code to the user's email.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            Cognito.prototype.resetPassword = function () {
+                var _this = this;
+                return new Promise(function (resolve, reject) {
+                    if (!_this.currentUser) {
+                        reject('User was not set!');
+                    }
+                    else {
+                        _this.currentUser.forgotPassword({
+                            onSuccess: function (res) {
+                                resolve();
+                            },
+                            onFailure: function (error) {
+                                reject(error);
+                            }
+                        });
+                    }
+                });
+            };
+            /**
+             * Changes the users password after reset.
+             * @param code The code given in the reset email.
+             * @param newPassword The new password to be used.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            Cognito.prototype.confirmResetPassword = function (code, newPassword) {
+                var _this = this;
+                return new Promise(function (resolve, reject) {
+                    if (!_this.currentUser) {
+                        reject('User was not set!');
+                    }
+                    else {
+                        _this.currentUser.confirmPassword(code, newPassword, {
+                            onSuccess: function (res) {
+                                resolve();
+                            },
+                            onFailure: function (error) {
+                                reject(error);
+                            }
+                        });
+                    }
+                });
+            };
+            /**
+             * Changes the password for the current user. The user has to be logged in.
+             * @param oldPassword The current password for the user.
+             * @param newPassword The new password for the user.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            Cognito.prototype.changePassword = function (oldPassword, newPassword) {
+                var _this = this;
+                return new Promise(function (resolve, reject) {
+                    if (!_this.currentUser) {
+                        reject('User was not set!');
+                    }
+                    else {
+                        _this.currentUser.changePassword(oldPassword, newPassword, function (error, result) {
+                            if (error !== null) {
+                                reject(error);
+                            }
+                            else {
+                                resolve(null);
+                            }
+                        });
+                    }
+                });
             };
             /**
              * Checks if the current user has a valid session with the server.

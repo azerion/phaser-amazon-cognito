@@ -35,6 +35,9 @@ declare module AWSCognito.CognitoIdentityServiceProvider {
         public authenticateUser(params: any, callbacks: any): void;
         public confirmRegistration(code: string, somethingWhichIsTrue: boolean, callback: (err: any, result: any) => void): void;
         public resendConfirmationCode(callback: Function): void;
+        public forgotPassword(callback: any): void;
+        public confirmPassword(code: string, newPassword: string, callback: any): void;
+        public changePassword(oldPassword: string, newPassword: string, callback: Function): void;
         public signOut(): void;
     }
 

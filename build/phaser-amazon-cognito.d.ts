@@ -42,6 +42,25 @@ declare module Fabrique {
              */
             logout(): void;
             /**
+             * Sends a reset password code to the user's email.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            resetPassword(): Promise<any>;
+            /**
+             * Changes the users password after reset.
+             * @param code The code given in the reset email.
+             * @param newPassword The new password to be used.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            confirmResetPassword(code: string, newPassword: string): Promise<any>;
+            /**
+             * Changes the password for the current user. The user has to be logged in.
+             * @param oldPassword The current password for the user.
+             * @param newPassword The new password for the user.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            changePassword(oldPassword: string, newPassword: string): Promise<any>;
+            /**
              * Checks if the current user has a valid session with the server.
              * @returns {Promise<T>|Promise} The session of the user or an error in a promise
              */

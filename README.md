@@ -32,7 +32,7 @@ Usage
 -----
 First off you want to set the user pool info using the userPoolId and clientId.
 ```javascript
-game.cognito.setPoolInfo('<yourPoolId>', '<yourClientId>');
+game.cognito.setPoolInfo('<your_pool_id>', '<your_client_id>');
 ```
 
 #####Registration
@@ -48,7 +48,7 @@ game.cognito.register('<username>', '<password>', '<email>', null).then(function
 #####Confirm Registration
 An account has to be confirmed after registration. The code will be in the inbox of the users email.
 ```javascript
-game.cognito.verify('<confirmationCode>').then(function() {
+game.cognito.confirmRegistration('<confirmation_code>').then(function() {
     console.log('Confirmation worked!');
 }).catch(function(error) {
     console.log('Confirmation failed:', error);
@@ -62,6 +62,36 @@ game.cognito.resendConfirmation().then(function() {
     console.log('Confirmation resend!');
 }).catch(function(error) {
     console.log('Failed to resend confirmation:', error);
+});
+```
+
+#####Reset Password
+Sends a reset code to the user's email address.
+```javascript
+game.cognito.resetPassword().then(function() {
+    console.log('Password has been reset!');
+}).catch(function(error) {
+    console.log('Failed to reset password:', error);
+});
+```
+
+#####Confirm Password Reset
+Use the reset code given in the reset email to change password.
+```javascript
+game.cognito.confirmResetPassword('<confirmation_code>', '<new_password>').then(function() {
+    console.log('Password has been changed!');
+}).catch(function(error) {
+    console.log('Failed to change password:', error);
+});
+```
+
+#####Change Password
+Changes the password for the current user. The user has to be logged in.
+```javascript
+game.cognito.changePassword('old_password', 'new_password').then(function() {
+    console.log('Password has been change!');
+}).catch(function(error) {
+    console.log('Failed to change password:', error);
 });
 ```
 

@@ -46,11 +46,13 @@ module Fabrique {
                 }));
 
                 // Add all others
-                for (let i: number = 0; i < attributes.length; i++) {
-                    attr.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
-                        Name: attributes[i].name,
-                        Value: attributes[i].value
-                    }));
+                if (attributes !== null && attributes.length > 0) {
+                    for (let i: number = 0; i < attributes.length; i++) {
+                        attr.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+                            Name: attributes[i].name,
+                            Value: attributes[i].value
+                        }));
+                    }
                 }
 
                 return new Promise((resolve: (value?: any | Thenable<any>) => void, reject: (error?: any) => void) => {
@@ -138,6 +140,72 @@ module Fabrique {
              */
             public logout(): void {
                 this.currentUser.signOut();
+            }
+
+            /**
+             * Sends a reset password code to the user's email.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            public resetPassword(): Promise<any> {
+                return new Promise((resolve: (value?: any | Thenable<any>) => void, reject: (error?: any) => void) => {
+                    if (!this.currentUser) {
+                        reject('User was not set!');
+                    } else {
+                        this.currentUser.forgotPassword({
+                            onSuccess: (res: any) => {
+                                resolve();
+                            },
+                            onFailure: (error: any) => {
+                                reject(error);
+                            }
+                        });
+                    }
+                });
+            }
+
+            /**
+             * Changes the users password after reset.
+             * @param code The code given in the reset email.
+             * @param newPassword The new password to be used.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            public confirmResetPassword(code: string, newPassword: string): Promise<any> {
+                return new Promise((resolve: (value?: any | Thenable<any>) => void, reject: (error?: any) => void) => {
+                    if (!this.currentUser) {
+                        reject('User was not set!');
+                    } else {
+                        this.currentUser.confirmPassword(code, newPassword, {
+                            onSuccess: (res: any) => {
+                                resolve();
+                            },
+                            onFailure: (error: any) => {
+                                reject(error);
+                            }
+                        });
+                    }
+                });
+            }
+
+            /**
+             * Changes the password for the current user. The user has to be logged in.
+             * @param oldPassword The current password for the user.
+             * @param newPassword The new password for the user.
+             * @returns {Promise<T>|Promise} Returns null or an error in a promise
+             */
+            public changePassword(oldPassword: string, newPassword: string): Promise<any> {
+                return new Promise((resolve: (value?: any | Thenable<any>) => void, reject: (error?: any) => void) => {
+                    if (!this.currentUser) {
+                        reject('User was not set!');
+                    } else {
+                        this.currentUser.changePassword(oldPassword, newPassword, (error: any, result: any) => {
+                            if (error !== null) {
+                                reject(error);
+                            } else {
+                                resolve(null);
+                            }
+                        });
+                    }
+                });
             }
 
             /**

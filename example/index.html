@@ -57,7 +57,7 @@
         }
 
         function confirmUser(id) {
-            game.cognito.verify(id).then(function() {
+            game.cognito.confirmRegistration(id).then(function() {
                 console.log('Confirmation worked!');
             }).catch(function(error) {
                 console.log('Confirmation failed:', error);
@@ -77,6 +77,30 @@
                 console.log('LoggedIn!', state.user, state.sessionToken);
             }).catch(function(error) {
                 console.log('Login failed:', error);
+            });
+        }
+
+        function resetPassword() {
+            game.cognito.resetPassword().then(function() {
+                console.log('Password has been reset!');
+            }).catch(function(error) {
+                console.log('Password reset failed:', error);
+            });
+        }
+
+        function confirmResetPassword(code, newPassword) {
+            game.cognito.confirmResetPassword(code, newPassword).then(function() {
+                console.log('Password has been changed!');
+            }).catch(function(error) {
+                console.log('Failed to change password:', error);
+            });
+        }
+
+        function changePassword(oldPassword, newPassword) {
+            game.cognito.changePassword(oldPassword, newPassword).then(function() {
+                console.log('Password has been changed!');
+            }).catch(function(error) {
+                console.log('Password change failed:', error);
             });
         }
 
