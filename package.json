@@ -1,5 +1,5 @@
 {
-  "name": "phaser-amazon-cognito",
+  "name": "@orange-games/phaser-amazon-cognito",
   "author": "OrangeGames",
   "version": "0.0.5",
   "description": "A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn",
