@@ -1,3 +1,12 @@
+/*!
+ * phaser-amazon-cognito - version 0.0.6 
+ * A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn
+ *
+ * OrangeGames
+ * Build at 03-01-2017
+ * Released under MIT License 
+ */
+
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
