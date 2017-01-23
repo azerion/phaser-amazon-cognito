@@ -8,10 +8,10 @@
     <title>Phaser Cognito example</title>
 
     <!-- Include Phaser and Amazon SDK -->
-    <script type="text/javascript" src="../vendor/aws-cognito-sdk.min.js"></script>
-    <script type="text/javascript" src="../vendor/amazon-cognito-identity.min.js"></script>
+    <!--<script type="text/javascript" src="../node_modules/amazon-cognito-identity-js/dist/aws-cognito-sdk.min.js"></script>-->
+    <!--<script type="text/javascript" src="../node_modules/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>-->
     <script type="text/javascript" src="../node_modules/phaser/build/phaser.js"></script>
-    <script type="text/javascript" src="../build/phaser-amazon-cognito.js"></script>
+    <script type="text/javascript" src="../build/phaser-amazon-cognito.min.js"></script>
 
     <style type="text/css">
         body {
@@ -66,8 +66,85 @@
         }
 
         function create(){
-
+            game.cognito.setPoolInfo('<yourPoolId>', '<yourClientId>');
         }
+
+        function registerUser(username, password, email) {
+            game.cognito.register(username, password, email, null).then(function(user) {
+                console.log('Registration worked!', user);
+            }).catch(function(error) {
+                console.log('Registration failed:', error);
+            });
+        }
+
+        function confirmUser(id) {
+            game.cognito.confirmRegistration(id).then(function() {
+                console.log('Confirmation worked!');
+            }).catch(function(error) {
+                console.log('Confirmation failed:', error);
+            });
+        }
+
+        function resendConfirmation() {
+            game.cognito.resendConfirmation().then(function() {
+                console.log('Confirmation resend!');
+            }).catch(function(error) {
+                console.log('Failed to resend confirmation:', error);
+            });
+        }
+
+        function loginUser(username, password) {
+            game.cognito.login(username, password).then(function(state) {
+                console.log('LoggedIn!', state.user, state.sessionToken);
+            }).catch(function(error) {
+                console.log('Login failed:', error);
+            });
+        }
+
+        function resetPassword() {
+            game.cognito.resetPassword().then(function() {
+                console.log('Password has been reset!');
+            }).catch(function(error) {
+                console.log('Password reset failed:', error);
+            });
+        }
+
+        function confirmResetPassword(code, newPassword) {
+            game.cognito.confirmResetPassword(code, newPassword).then(function() {
+                console.log('Password has been changed!');
+            }).catch(function(error) {
+                console.log('Failed to change password:', error);
+            });
+        }
+
+        function changePassword(oldPassword, newPassword) {
+            game.cognito.changePassword(oldPassword, newPassword).then(function() {
+                console.log('Password has been changed!');
+            }).catch(function(error) {
+                console.log('Password change failed:', error);
+            });
+        }
+
+        function validateSession() {
+            game.cognito.validateSession().then(function() {
+                console.log('Valid session!');
+            }).catch(function(error) {
+                console.log('Invalid session:', error);
+            });
+        }
+
+        function logout() {
+            game.cognito.logout();
+        }
+
+        function loadStorageUser() {
+            game.cognito.loadStorageUser();
+        }
+
+        function setUser(name) {
+            game.cognito.setUser(name);
+        }
+
     </script>
 </head>
 <body>
