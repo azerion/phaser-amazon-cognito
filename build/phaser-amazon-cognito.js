@@ -1,5 +1,5 @@
 /*!
- * phaser-amazon-cognito - version 0.1.1 
+ * phaser-amazon-cognito - version 0.1.2 
  * A Phaser plugin that adds User Login/Sync support trough Amazon Cognito Identity/Syn
  *
  * OrangeGames

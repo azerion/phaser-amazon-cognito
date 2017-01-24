@@ -63,8 +63,9 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'build/<%= pkg.config.name %>.min.js': [
-                        'node_modules/amazon-cognito-identity-js/dist/aws-cognito-sdk.min.js',
-                        'node_modules/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js',
+                        'node_modules/jsbn/index.js',
+                        'vendor/aws-cognito-sdk.js',
+                        'vendor/amazon-cognito-identity.min.js',
                         'build/<%= pkg.config.name %>.js'
                     ]
                 }
